@@ -17,6 +17,7 @@ public class MyController {
 
     @GetMapping("/getFlowNo")
     public String getFlowNo(){
+        System.out.println("收到请求");
         return UUID.randomUUID().toString();
     }
 }

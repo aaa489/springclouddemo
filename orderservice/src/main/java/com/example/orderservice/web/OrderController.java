@@ -28,15 +28,16 @@ public class OrderController {
 
     @GetMapping("/palceOrder")
     public void placeOrder(){
-        List<ServiceInstance> instances = discoveryClient.getInstances("unionflowService");
-
-        // 获取第一个服务信息
-        ServiceInstance instanceInfo = instances.get(0);
-        //获取ip
-        String ip = "localhost";//instanceInfo.getHost();
-        //获取port
-        int port = instanceInfo.getPort();
-        String url  ="http://"+ip+":"+port+"/unionflowservice/getFlowNo";
+//        List<ServiceInstance> instances = discoveryClient.getInstances("unionflowService");
+//
+//        // 获取第一个服务信息
+//        ServiceInstance instanceInfo = instances.get(0);
+//        //获取ip
+//        String ip = "localhost";//instanceInfo.getHost();
+//        //获取port
+//        int port = instanceInfo.getPort();
+        //String url  ="http://"+ip+":"+port+"/unionflowservice/getFlowNo";
+        String url  ="http://UNIONFLOW-SERVICE/unionflowservice/getFlowNo";
         String ss = restTemplate.getForObject(url, String.class);
         int i = 0;
     }
