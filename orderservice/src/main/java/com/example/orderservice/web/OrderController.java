@@ -1,5 +1,6 @@
 package com.example.orderservice.web;
 
+import com.example.orderservice.api.UnionflowserviceAPI;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +18,23 @@ import java.util.List;
 @RestController
 public class OrderController {
 
+    //使用fegin
+    private UnionflowserviceAPI unionflowserviceAPI;
+
+    //不使用fegin
     private final RestTemplate restTemplate;
 
     private final DiscoveryClient discoveryClient;
 
-    public OrderController(RestTemplate restTemplate, DiscoveryClient discoveryClient) {
+    public OrderController(RestTemplate restTemplate, DiscoveryClient discoveryClient, UnionflowserviceAPI unionflowserviceAPI) {
         this.restTemplate = restTemplate;
         this.discoveryClient = discoveryClient;
+        this.unionflowserviceAPI = unionflowserviceAPI;
     }
 
     @GetMapping("/palceOrder")
     public void placeOrder(){
+//        //使用DiscoveryClient取得服务实例并调用，可以自己定义负载均衡策略
 //        List<ServiceInstance> instances = discoveryClient.getInstances("unionflowService");
 //
 //        // 获取第一个服务信息
@@ -36,9 +43,14 @@ public class OrderController {
 //        String ip = "localhost";//instanceInfo.getHost();
 //        //获取port
 //        int port = instanceInfo.getPort();
-        //String url  ="http://"+ip+":"+port+"/unionflowservice/getFlowNo";
+//        String url  ="http://"+ip+":"+port+"/unionflowservice/getFlowNo";
+
+//        //使用openfegin做本地化调用
+//        String flowNo = unionflowserviceAPI.getFlowNo();
+
+        //使用ribbon做负载均衡调用，RestTemplate定义上需加LoadBalanced注解，host才能填服务名
         String url  ="http://UNIONFLOW-SERVICE/unionflowservice/getFlowNo";
         String ss = restTemplate.getForObject(url, String.class);
-        int i = 0;
+        System.out.println(ss);
     }
 }
