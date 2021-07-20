@@ -1,6 +1,7 @@
 package com.example.orderservice.web;
 
 import com.example.orderservice.api.UnionflowserviceAPI;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,5 +53,18 @@ public class OrderController {
         String url  ="http://UNIONFLOW-SERVICE/unionflowservice/getFlowNo";
         String ss = restTemplate.getForObject(url, String.class);
         System.out.println(ss);
+    }
+
+    @GetMapping("/removeOrder")
+    @HystrixCommand(fallbackMethod = "error")
+    public void removeOrder(String id){
+        //throw new RuntimeException("手动抛出异常");
+        String url  ="http://UNIONFLOW-SERVICE-1/unionflowservice/getFlowNo";
+        String ss = restTemplate.getForObject(url, String.class);
+        System.out.println(ss);
+    }
+
+    public void error(String id) {
+        String msg = "hi,"+id+",sorry,error!";
     }
 }
