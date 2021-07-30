@@ -2,8 +2,10 @@ package com.example.orderservice.web;
 
 import com.example.orderservice.api.UnionflowserviceAPI;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +19,11 @@ import java.util.List;
  */
 @RequestMapping("order")
 @RestController
+@RefreshScope
 public class OrderController {
+
+    @Value("${word}")
+    private String word;
 
     //使用fegin
     private UnionflowserviceAPI unionflowserviceAPI;
