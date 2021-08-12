@@ -22,6 +22,7 @@ import java.util.List;
 @RefreshScope
 public class OrderController {
 
+    //从配置中心取
     @Value("${word}")
     private String word;
 
