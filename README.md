@@ -1,0 +1,9 @@
+# springclouddemo
+个人对于spring cloud的学习项目，目前实现以下功能
+- euraka注册中心
+- Ribbon实现负载均衡调用
+- Fegin实现远程调用和负载均衡
+- hystrix实现调用过程熔断降级
+- zuul网关实现动态路由
+- zipkin实现路由追踪
+- 其他正在学习中
